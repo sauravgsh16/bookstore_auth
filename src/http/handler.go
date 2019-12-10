@@ -10,6 +10,7 @@ import (
 	"github.com/sauravgsh16/bookstore_auth/src/utils/errors"
 )
 
+// Handler interface
 type Handler interface {
 	GetByID(*gin.Context)
 	Create(*gin.Context)
@@ -20,6 +21,7 @@ type accessTokenHandler struct {
 	service accesstoken.Service
 }
 
+// NewHandler returns a new handler
 func NewHandler(s accesstoken.Service) Handler {
 	return &accessTokenHandler{
 		service: s,
