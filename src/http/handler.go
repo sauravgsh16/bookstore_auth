@@ -8,7 +8,7 @@ import (
 	"github.com/sauravgsh16/bookstore_auth/src/domain/accesstoken"
 )
 
-type Handler struct {
+type Handler interface {
 	GetByID(c *gin.Context)
 }
 
@@ -18,7 +18,7 @@ type accessTokenHandler struct {
 
 func NewHandler(s accesstoken.Service) Handler {
 	return &accessTokenHandler{
-		service: s
+		service: s,
 	}
 }
 
