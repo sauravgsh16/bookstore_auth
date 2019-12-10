@@ -12,6 +12,7 @@ var (
 	router = gin.Default()
 )
 
+// StartApplication starts the application server
 func StartApplication() {
 	db := db.NewRepository()
 	serv := accesstoken.NewService(db)
@@ -19,6 +20,8 @@ func StartApplication() {
 	h := http.NewHandler(serv)
 
 	router.GET("/auth/access_token/:access_token_id", h.GetByID)
+	router.POST("/auth/access_token", h.Create)
+	router.PUT("/auth/access_token", h.Update)
 
 	router.Run(":8080")
 }

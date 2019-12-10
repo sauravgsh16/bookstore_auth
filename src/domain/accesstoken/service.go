@@ -6,19 +6,26 @@ import (
 	"github.com/sauravgsh16/bookstore_auth/src/utils/errors"
 )
 
+// Service interface
 type Service interface {
 	GetByID(string) (*AccessToken, *errors.RestErr)
+	Create(*AccessToken) (*AccessToken, *errors.RestErr)
+	Update(*AccessToken) *errors.RestErr
 }
 
-type Respository interface {
+// Repository interface
+type Repository interface {
 	GetByID(string) (*AccessToken, *errors.RestErr)
+	Create(*AccessToken) *errors.RestErr
+	Update(*AccessToken) *errors.RestErr
 }
 
 type service struct {
-	repo Respository
+	repo Repository
 }
 
-func NewService(r Respository) Service {
+// NewService returns a new service
+func NewService(r Repository) Service {
 	return &service{
 		repo: r,
 	}
@@ -35,4 +42,23 @@ func (s *service) GetByID(id string) (*AccessToken, *errors.RestErr) {
 		return nil, err
 	}
 	return at, nil
+}
+
+func (s *service) Create(at *AccessToken) (*AccessToken, *errors.RestErr) {
+	if err := at.Validate(); err != nil {
+		return nil, err
+	}
+
+	if err := s.repo.Create(at); err != nil {
+		return nil, err
+	}
+
+	return at, nil
+}
+
+func (s *service) Update(at *AccessToken) *errors.RestErr {
+	if err := at.Validate(); err != nil {
+		return err
+	}
+	return s.repo.Update(at)
 }
