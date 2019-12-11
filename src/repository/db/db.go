@@ -13,15 +13,15 @@ const (
 	updateQuery = `UPDATE access_tokens SET expires=? WHERE access_token=?;`
 )
 
-// DBRepository interface
-type DBRepository interface {
+// Repository interface
+type Repository interface {
 	GetByID(string) (*accesstoken.AccessToken, *errors.RestErr)
 	Create(*accesstoken.AccessToken) *errors.RestErr
 	Update(*accesstoken.AccessToken) *errors.RestErr
 }
 
 // NewRepository returns a new db repo
-func NewRepository() DBRepository {
+func NewRepository() Repository {
 	return &dbRepository{}
 }
 

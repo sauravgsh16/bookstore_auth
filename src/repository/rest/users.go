@@ -6,8 +6,8 @@ import (
 
 	"github.com/mercadolibre/golang-restclient/rest"
 
-	"github.com/sauravgsh16/bookstore-auth-api/src/domain/users"
-	"github.com/sauravgsh16/bookstore-auth-api/src/utils/errors"
+	"github.com/sauravgsh16/bookstore_auth/src/domain/users"
+	"github.com/sauravgsh16/bookstore_auth/src/utils/errors"
 )
 
 const (
